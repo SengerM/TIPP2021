@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Development of a timing chip prototype in 110 nm CMOS technology</title>
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> <!-- This fixes the problem of small font (some texts and also the math) in mobile devices, see https://stackoverflow.com/a/35564095/8849755 -->
+	<link rel="stylesheet" href="https://sengerm.github.io/html-academic-publishing/css_and_scripts/style.css">
+	<link rel="stylesheet" href="css/style.css">
+	<!-- Math support https://www.mathjax.org/#gettingstarted -->
+    <script>
+	MathJax = {
+	  tex: {
+		inlineMath: [['$', '$'], ['\\(', '\\)']]
+	  },
+	  svg: {
+		fontCache: 'global'
+	  }
+	};
+	</script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+
+<presentation_display_block>
+
+<div id="document_title"></div>
+	
+<author	affiliation="Paul Scherrer Institut|Universität Zürich">
+	L. Caminada
+</author>
+<author	affiliation="Universität Zürich">
+	B. Kilminster
+</author>
+<author affiliation="Paul Scherrer Institut">
+	B. Meier
+</author>
+<author affiliation="Universität Zürich">
+	<u>M. Senger</u>
+</author>
+<author affiliation="?????????????????">
+	S. Wiederkehr
+</author>
+
+<div id="presentation_header">
+	<image id="logo_TIPP" src="media/logo_TIPP2021.svg"></image>
+	<span id="date">May&nbsp;25<sup>th</sup>&nbsp;2021</span>
+	<span id="presenter">Matías Senger</span>
+	<div id="institutions_logos">
+		<image id="logo_PSI" src="media/logo_PSI.svg"></image>
+		<image id="logo_UZH" src="media/logo_Physik_Institut.jpeg"></image>
+	</div>
+</div>
+
+<abstract>
+	<p>We present a readout chip prototype for future pixel detectors with timing capabilities. The prototype is intended for characterizing 4D pixel arrays with a pixel size of 100×100&nbsp;µm<sup>2</sup>, where the sensors are LGADs. The long term focus is towards a possible replacement of disks in the extended forward pixel system (TEPX) of the CMS experiment during the HL-LHC. The requirements for this ASIC are the incorporation of a TDC (Time to Digital Converter) in the small pixel area, low power consumption and radiation tolerance up to 5e15 neq/cm<sup>2</sup> to withstand the radiation levels in the innermost detector modules during HL-LHC. A prototype has been designed and produced in 110 nm CMOS technology at LFoundry and UMC with different versions of TDC structures, together with a front end circuitry to interface with the sensors. The design of the TDC will be discussed, with the test set-up for the measurements, and the first results comparing the performance of the different structures.</p>
+</abstract>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<div id="table-of-contents">
+	<h2 class="unnumbered">Presentation layout</h2>
+	<!-- Here will be placed the table of contents -->
+</div>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h1>Introduction</h1>
+
+<h2 class="unnumbered">Time resolution in the tracker</h2>
+
+<p>Why add time resolution?</p>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<div style="display: flex; justify-content: space-around; align-items: center; overflow-x: auto; flex-direction: column;">
+	<p>Two events occur at "almost the same position" but at different times:</p>
+	<div style="width: 25vw; max-width: 333px; min-width: 222px;">
+		<image src="media/1.svg" width=100%></image>
+	</div>
+</div>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<div style="display: flex; justify-content: space-around; align-items: top; overflow-x: auto;">
+	<div style="width: 25vw; max-width: 333px; min-width: 222px;">
+		<p>Without time resolution:</p>
+		<image src="media/2.svg" width=100%></image>
+	</div>
+	<div style="width: 25vw; max-width: 333px; min-width: 222px;">
+		<p>With time resolution:</p>
+		<image src="media/3.svg" width=100%></image>
+	</div>
+</div>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<div style="display: flex; justify-content: space-evenly; margin: 77px 0; background-color: rgb(222,222,255); padding: 33px;">
+<div>High luminosities</div><div>$\Rightarrow$</div><div>High pileup</div><div>$\Rightarrow$</div><div>Position resolution is not enough</div>
+</div>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h2 class="unnumbered">Future requirements</h2>
+
+<p>A summary from&nbsp;<crossref>Reference: Program of Tech for Future Experiments</crossref></p>
+
+<table class="spaced">
+<thead>
+  <tr>
+    <th></th>
+    <th>HL-LHC</th>
+    <th>FCC-hh</th>
+    <th>FCC-ee</th>
+    <th>CLIC</th>
+    <th>µ<sup>+</sup>µ<sup>-</sup></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><b>Pixel size (µm×µm)</b></td>
+    <td>50×50</td>
+    <td>25×50</td>
+    <td>25×25</td>
+    <td>25×25</td>
+    <td><br></td>
+  </tr>
+  <tr>
+    <td><b>Time resolution (ps)</b></td>
+    <td>50</td>
+    <td>10</td>
+    <td>1000</td>
+    <td>5000</td>
+    <td>50-100</td>
+  </tr>
+</tbody>
+</table>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h2 class="unnumbered">Sensors</h2>
+
+<p>In the <b>sensors</b> side there are a number of technologies under development:
+<ul class="spaced">
+	<li>Inverse LGAD (iLGAD).</li>
+	<li>Trench Isolated LGAD (TI-LGAD).</li>
+	<li>AC Coupled LGAD (AC-LGAD).</li>
+</ul>
+</p>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<p>This require an <b>ASIC</b> capable of providing such characteristics with a low power consumption and withstanding the high radiation levels.</p>
+
+</presentation_display_block>
+<presentation_display_block>
+	
+<p>Our goal:</p>
+
+<div style="margin: 22px 0 22px 44px;"><p>"Full ASIC" = Analog front end + Digitizer</p></div>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<p><b>Today</b> I will focus on the timing digitizer, <b>Time to Digital Converter (TDC)</b>.</p>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h1>TDC designs</h1>
+
+<p>2 designs have been <b>produced and tested</b>:</p>
+
+<ol class="spaced">
+	<li>Fully digital TDC.</li>
+	<li>Semi analog TDC.</li>
+</ol>
+
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h2>Fully digital TDC</h2>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<image width=100% src="media/fully_digital_tdc_block diagram.svg"></image>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h3 class="unnumbered">Working principle</h3>
+
+<ol class="spaced">
+	<li><code>START</code> and <code>STOP</code> at low level. The ring is open; no oscillation.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li><code>START</code> changes to high. The ring is closed; begins to oscillate.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>The counter counts number of full loops.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li><code>STOP</code> changes to high. The state of the system is registered by the flip-flops and the counter.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>Read the outputs.</li>
+</ol>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<p>Inverters are "regular inverters" but optimized for high speed.</p>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h2>Semi analog TDC</h2>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<image width=100% src="media/semi_analog_tdc_block diagram.svg"></image>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h3 class="unnumbered">Working principle</h3>
+
+<ol class="spaced">
+	<li><code>START</code> and <code>STOP</code> at low level. Ring does not oscillate.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li><code>START</code> changes to high. The ring starts to oscillate (it is properly initialized, not shown in the block diagram).</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>The counter counts the number of full loops.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li><code>STOP</code> changes to high. The inverters are "analogly frozen" in whatever state they were. The one inverter that was commuting is frozen in an intermediate state.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>The <code>INV[8:0]</code> outputs are read in an analog way.</li>
+</ol>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<p>Fully custom design for the inverters and analog readout stage (not shown in the block diagram).</p>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h2>Summary of the two designs</h2>
+
+<p>We can view each TDC as a black box:</p>
+
+<image src="media/4.svg" style="width: 100%; max-width: 777px; display: block; margin: 88px auto;"></image>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h1>Test setup</h1>
+</presentation_display_block>
+<presentation_display_block>
+
+<p>A specialized test setup was assembled.</p>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<image src="media/test_setup_block_diagram.svg" style="width:100%"></image>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<ul class="spaced">
+	<li>Raspberri Pi: Automates measurement routines.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>FPGA: Controls hardware.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>Delay module: Produces <code>START</code> and <code>STOP</code> signals with arbitrary time difference (-10 to 10&nbsp;ns in steps of about 1&nbsp;ps).</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>ADC: Used only for the semi analog TDC as <code>INV[:]</code> is an analog bus.</li>
+</ul>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<p>A picture of the setup:</p>
+<image src="media/5.svg" style="height: 60vh; margin: 0 auto; display: block;"></image>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h1>Results</h1>
+
+<h2 id="Section: Fully digital TDC results">Fully digital TDC</h2>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<ul class="spaced">
+	<li>The time $\Delta t = t_\text{START} - t_\text{STOP}$ was measured with the TDC many times, with different values of $\Delta t$, to get enough statistics.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>For each $\Delta t$ the output of the TDC was recorded.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>The results were plotted in the histogram below.</li>
+</ul>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<iframe class="plotly" src="media/Distribution of outputs for TDC 2.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<ul>
+	<li>The notation is <code>COUNT[:]|INV[:]</code>.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>Problem with the bit <code>COUNT[0]</code> (error in circuit layout &#128533;).</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>Distribution: Uniform with small tails.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>Gaps within some distributions: Due to the test setup (problem already identified in the Raspberry Pi software).</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>Outputs with <code>INV[:]=1</code> appear twice (e.g. <code>2|111111111111111111111</code>). Solution: Extra counter.</li>
+</ul>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<p>We can think of this as an imperfect ruler:</p>
+<img src="media/ruler_nice.svg" onmouseover="this.src='media/ruler_not_nice.svg'" onmouseout="this.src='media/ruler_nice.svg'" style="margin: 0 auto; display: block; width: 100%; max-width: 666px;"/>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h2 class="unnumbered">Time resolution</h2>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<ul>
+	<li>The "ruler" is "dense", i.e. there are no empty gaps.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>For each bin in this "imperfect ruler" (i.e. for each output of our TDC) we can define its own resolution.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>Distributions tend to be uniform.</li>
+</ul>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<p>In view of this, I will look at the following quantities:</p>
+
+<image src="media/time_resolution_definition.svg" style="display: block; margin: 0 auto; width: 100%; max-width: 444px;"></image>
+
+<ol class="spaced">
+	<li>Mean.</li>
+	<li>Standard deviation $\sigma$.</li>
+	<li>Width of the distribution measured as $q_{95\text{ %}} - q_{5\text{ %}}$ where $q_x$ is the $x$ percent quantile.</li>
+</ol>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h3 class="unnumbered">Mean time of each output</h3>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<iframe class="plotly" src="media/Mean time vs output.html" style="min-width: 666px !important; max-width: 100% !important; height: 555px !important;"></iframe>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<ul>
+	<li>Linear (as expected).</li>
+</presentation_display_block>
+<presentation_display_block>
+	<li>Deviations for outputs with <code>INV[:]=1</code>. Due to the problem previously discussed.</li>
+</ul>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h3 class="unnumbered">Dispersion of each output</h3>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<p>This plot shows $\sigma$ and $q_{95\text{ %}} - q_{5\text{ %}}$ together.</p>
+
+<iframe class="plotly" src="media/Time resolution vs output.html" style="min-width: 666px !important; max-width: 100% !important; height: 555px !important;"></iframe>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<ul>
+	<li>Peaks due to the <code>INV[:]=1</code> problem, once again.</li>
+</presentation_display_block>
+<presentation_display_block>
+	<li>Moving averages increase for higher times. Expected because fluctuations in propagation delay of inverters are accumulative.</li>
+</ul>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h3 class="unnumbered">Time resolution of the fully digital TDC</h3>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<p>Let's see the distribution of the temporal dispersion of the outputs:</p>
+
+<iframe class="plotly" src="media/Time resolution histograms.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<p>Temporal resolution for this TDC:</p>
+<ul class="spaced">
+	<li>Using $q_{95\text{ %}} - q_{5\text{ %}}$ (i.e. "full width"):
+	<ul>
+		<li>All widths are $\lt 60 \text{ ps}$.</li>
+		<li>"Typical value" of $30 \text{ ps}$.</li>
+	</ul>
+	</li>
+	<li>Using $\sigma$ (standard deviation):
+	<ul>
+		<li>All $\sigma$'s are $\lt 20 \text{ ps}$.</li>
+		<li>"Typical value" of $10 \text{ ps}$.</li>
+	</ul>
+	</li>
+</ul>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h2 id="Section: Semi analog TDC results">Semi analog TDC</h2>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h1>Conclusions</h1>
+
+</presentation_display_block>
+
+<!----------------------------------------------------------------->
+<presentation_display_block>
+<div id="references_list">
+	<h1 class="unnumbered">References</h1>
+	<reference id="Reference: HL-LHC schedule">LHC schedule overview. <a href="https://project-hl-lhc-industry.web.cern.ch/content/project-schedule">https://project-hl-lhc-industry.web.cern.ch/content/project-schedule</a>. Accessed May 2021.</reference>
+	<reference id="Reference: Program of Tech for Future Experiments"><em>Strategic R&amp;D Programme on Technologies for Future Experiments</em>. <a href="https: //cds.cern.ch/record/2649646">https: //cds.cern.ch/record/2649646</a>, December 2018. Number: CERN-OPEN-2018-006.</reference>
+</div>
+
+<div id="footnotes_list">
+	<h1 class="unnumbered">Footnotes</h2>
+</div>
+</presentation_display_block>
+
+<script src="https://sengerm.github.io/html-academic-publishing/css_and_scripts/script.js"></script>
+<script src="https://sengerm.github.io/html-academic-publishing/css_and_scripts/authors.js"></script>
+
+<!-- Presentation display blocks -->
+<script src="https://sengerm.github.io/html-academic-publishing/css_and_scripts/presentation_display_block/presentation_display_block.js"></script>
+<link rel="stylesheet" href="https://sengerm.github.io/html-academic-publishing/css_and_scripts/presentation_display_block/presentation_display_block.css">
+<script src="js/header.js"></script>
+<link rel="stylesheet" href="css/header.css">
+</body>
+
+</html>
