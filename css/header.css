@@ -54,11 +54,14 @@
 }
 #presentation_header #presenter {
 	display: none;
+	text-align: center;
 }
 #sticked_presentation_header #presenter, #sticked_presentation_header #date {
 	display: inline;
 	margin: 0 22px !important;
+	text-align: center;
 }
 #presentation_header #date {
 	margin: 33px;
+	text-align: center;
 }
