@@ -464,31 +464,157 @@
 
 <h2 id="Section: Semi analog TDC results">Semi analog TDC</h2>
 
+</presentation_display_block>
+<presentation_display_block>
+
+<p>Raw data looks like this:</p>
+
 <div style="display: flex;">
 	<iframe class="plotly" src="media/processed_by_script_visualize_tpix_data_FOR_TIPP2021/Counter.html" style="min-width: 333px !important; max-width: 33% !important;"></iframe>
 	<iframe class="plotly" src="media/processed_by_script_visualize_tpix_data_FOR_TIPP2021/Raw inverters signals.html" style="min-width: 555px !important; max-width: 77% !important;"></iframe>
 </div>
 
+</presentation_display_block>
+<presentation_display_block>
+
+<ul>
+	<li>The counter counts each falling edge of <code>INV[8]</code>.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li><code>INV[8]</code> has different amplitude due to the counter input impedance.</li>
+</ul>
+</presentation_display_block>
+<presentation_display_block>
+
+<p>Let's normalize all the <code>INV[:]</code> signals and invert the odd ones:</p>
+
 <iframe class="plotly" src="media/processed_by_script_visualize_tpix_data_FOR_TIPP2021/Normalized inverters signals.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<p>Now we digitize them with a "low resolution ADC":</p>
 
 <iframe class="plotly" src="media/Discretization demonstration.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
 
+</presentation_display_block>
+<presentation_display_block>
+
+<p>Digitized <code>INV[:]</code> now looks like this:
+<ul class="spaced">
+	<li>1 bit: <code>000011111</code>.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>1.5 bit: <code>000122222</code>.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>2 bit: <code>000123333</code>.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>3 bit: <code>001234568</code>.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>Etc.</li>
+</ul>
+</p>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<p>This procedure on real data:</p>
+
 <div>
 	<div style="display: flex; align-items: center; width: 100%;">
-		<iframe class="plotly" src="media/processed_by_script_plot_sequences_distributions_FOR_TIPP/Time distribution of sequences with 2 levels of discretization.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
 		<div style="transform: rotate(-90deg); font-size: 200%; font-weight: bold;">1&nbsp;bit</div>
+		<iframe class="plotly" src="media/processed_by_script_plot_sequences_distributions_FOR_TIPP/Time distribution of sequences with 2 levels of discretization.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
 	</div>
 
+</presentation_display_block>
+<presentation_display_block>
+
 	<div style="display: flex; align-items: center; width: 100%;">
-		<iframe class="plotly" src="media/processed_by_script_plot_sequences_distributions_FOR_TIPP/Time distribution of sequences with 4 levels of discretization.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
 		<div style="transform: rotate(-90deg); font-size: 200%; font-weight: bold;">2&nbsp;bit</div>
+		<iframe class="plotly" src="media/processed_by_script_plot_sequences_distributions_FOR_TIPP/Time distribution of sequences with 4 levels of discretization.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
 	</div>
 
+</presentation_display_block>
+<presentation_display_block>
+
 	<div style="display: flex; align-items: center; width: 100%;">
-		<iframe class="plotly" src="media/processed_by_script_plot_sequences_distributions_FOR_TIPP/Time distribution of sequences with 8 levels of discretization.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
 		<div style="transform: rotate(-90deg); font-size: 200%; font-weight: bold;">3&nbsp;bit</div>
+		<iframe class="plotly" src="media/processed_by_script_plot_sequences_distributions_FOR_TIPP/Time distribution of sequences with 8 levels of discretization.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
 	</div>
 </div>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<h2 class="unnumbered">Time resolution</h2>
+
+<p>Repeat the same analysis as for the "fully digital" varying the number of discrete levels.</p>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<div style="display: flex;">
+	<div style="display: flex; flex-direction: column; justify-content: center;">
+		<div style="font-size: 150%; width: 100%; text-align: center;">q<sub>95 %</sub> - q<sub>5 %</sub></div>
+		<iframe class="plotly" src="media/processed_by_script_time_resolution_FOR_TIPP/Time resolution quantile vs time.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
+	</div>
+	<div style="display: flex; flex-direction: column; justify-content: center;">
+		<div style="font-size: 150%; width: 100%; text-align: center;">Standard deviation</div>
+		<iframe class="plotly" src="media/processed_by_script_time_resolution_FOR_TIPP/Time resolution std vs time.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
+	</div>
+</div>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<ul style="spaced">
+	<li>Same problem of the counter counting in between a fixed <code>INV</code> state; solution another counter in another node.</li>
+</presentation_display_block>
+<presentation_display_block>
+	<li>We see a degradation of the time resolution as time goes by; again expected due to the accumulative fluctuations in propagation delay.</li>
+</presentation_display_block>
+<presentation_display_block>
+	<li>Time resolution improves significantly by adding bits!</li>
+</presentation_display_block>
+<presentation_display_block>
+	<li>If only two bits are used: Worse than fully digital.</li>
+</ul>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<div style="display: flex;">
+	<div style="display: flex; flex-direction: column; justify-content: center;">
+		<iframe class="plotly" src="media/processed_by_script_time_resolution_FOR_TIPP/Distribution of quantile time resolution.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
+	</div>
+	<div style="display: flex; flex-direction: column; justify-content: center;">
+		<iframe class="plotly" src="media/processed_by_script_time_resolution_FOR_TIPP/Distribution of std time resolution.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
+	</div>
+</div>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<p>Temporal resolution for this TDC:</p>
+<ul class="spaced">
+	<li>Using $q_{95\text{ %}} - q_{5\text{ %}}$ (i.e. "full width"):
+	<ul>
+		<li>1 bit: $\lesssim 70 \text{ ps}$.</li>
+		<li>2 bit: $\lesssim 40 \text{ ps}$.</li>
+		<li>3 bit: $\lesssim 30 \text{ ps}$.</li>
+	</ul>
+	</li>
+	<li>Using $\sigma$ (standard deviation):
+	<ul>
+		<li>1 bit: $\lesssim 40 \text{ ps}$.</li>
+		<li>2 bit: $\lesssim 20 \text{ ps}$.</li>
+		<li>3 bit: $\lesssim 10 \text{ ps}$.</li>
+	</ul>
+	</li>
+</ul>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -514,9 +640,7 @@
 <script src="https://sengerm.github.io/html-academic-publishing/css_and_scripts/authors.js"></script>
 
 <!-- Presentation display blocks -->
-<!--
 <script src="https://sengerm.github.io/html-academic-publishing/css_and_scripts/presentation_display_block/presentation_display_block.js"></script>
--->
 <link rel="stylesheet" href="https://sengerm.github.io/html-academic-publishing/css_and_scripts/presentation_display_block/presentation_display_block.css">
 <script src="js/header.js"></script>
 <link rel="stylesheet" href="css/header.css">
