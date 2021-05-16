@@ -619,15 +619,44 @@
 </presentation_display_block>
 <presentation_display_block>
 
+<h1>Required space in the pixels</h1>
+
+<div style="display: flex; width: 100%;">
+	<div style="display: flex; flex-direction: column; width: 50%;">
+		<h2 class="unnumbered">Fully digital TDC</h2>
+		<p>Current implementation:</p>
+		<ul>
+			<li>21 inverters and 7 bits counter.</li>
+			<li>Up to $\approx 150 \text{ ns}$.</li>
+			<li>Does not fit in a 50×50&nbsp;µm<sup>2</sup> pixel.</li>
+		</ul>
+		<image src="media/7.svg" style="width: 100%; max-width: 222px;"></image>
+	</div>
+	
+	<div style="display: flex; flex-direction: column; width: 50%;">
+		<h2 class="unnumbered">Semi analog TDC</h2>
+		<p>Current implementation:</p>
+		<ul>
+			<li>9 inverters and 5 bits counter.</li>
+			<li>Up to $\approx 100 \text{ ns}$.</li>
+			<li>Fits fine in a 50×50&nbsp;µm<sup>2</sup> pixel.</li>
+		</ul>
+		<image src="media/6.svg" style="width: 100%; max-width: 222px;"></image>
+		<p>Will require more complicated readout logic, however this is in the periphery.</p>
+	</div>
+</div>
+
+
+
 <h1>Further perspectives</h1>
 
 <p style="color: red;">UNDER CONSTRUCTION</p>
 
-<p>An analog front end circuit to interface the sensors and the TDC was designed and produced, though not yet tested.</p>
+<ul class="spaced">
+	<li>An analog front end circuit to interface the sensors and the TDC was designed and produced, though not yet tested.</li>
+	<li>Looking forward for a Prototype 100×100&nbsp;µm<sup>2</sup>, 30×30 pixels.</li>
+</ul>
 
-<p>This front end together with one of the TDCs shown today will be used in the full chip prototype.</p>
-
-<p>Prototype 100×100&nbsp;µm<sup>2</sup>, 30×30 pixels.</p>
 
 <h1>Conclusions</h1>
 
@@ -668,7 +697,9 @@
 <script src="https://sengerm.github.io/html-academic-publishing/css_and_scripts/authors.js"></script>
 
 <!-- Presentation display blocks -->
+<!--
 <script src="https://sengerm.github.io/html-academic-publishing/css_and_scripts/presentation_display_block/presentation_display_block.js"></script>
+-->
 <link rel="stylesheet" href="https://sengerm.github.io/html-academic-publishing/css_and_scripts/presentation_display_block/presentation_display_block.css">
 <script src="js/header.js"></script>
 <link rel="stylesheet" href="css/header.css">
