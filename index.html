@@ -373,13 +373,13 @@
 	</presentation_display_block>
 	<presentation_display_block>
 	<li>For each $\Delta t$ the output of the TDC was recorded.</li>
-	</presentation_display_block>
-	<presentation_display_block>
-	<li>The results were plotted in the histogram below.</li>
 </ul>
+
 
 </presentation_display_block>
 <presentation_display_block>
+
+<p>Raw data shown in the histogram below.</p>
 
 <iframe class="plotly" src="media/Distribution of outputs for TDC 2.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
 
@@ -396,10 +396,19 @@
 	<li>Distribution: Uniform with small tails.</li>
 	</presentation_display_block>
 	<presentation_display_block>
-	<li>Gaps within some distributions: Due to the test setup (problem already identified in the Raspberry Pi software).</li>
+	<li>Gaps within some distributions: Due to the test setup<footnote>Problem already identified in the Raspberry Pi software.</footnote>, not TDC issue.</li>
 	</presentation_display_block>
 	<presentation_display_block>
-	<li>Outputs with <code>INV[:]=1</code> appear twice (e.g. <code>2|111111111111111111111</code>). Solution: Extra counter.</li>
+	<li>Outputs with <code>INV[:]=1</code> appear twice (e.g. <code>2|111111111111111111111</code>).
+		</presentation_display_block>
+		<presentation_display_block>
+		<ul>
+			<li>Solution: Extra counter.</li>
+			</presentation_display_block>
+			<presentation_display_block>
+			<li>Affects all our TDC designs.</li>
+		</ul>
+	</li>
 </ul>
 
 </presentation_display_block>
@@ -443,9 +452,6 @@
 <presentation_display_block>
 
 <h3 class="unnumbered">Mean time of each output</h3>
-
-</presentation_display_block>
-<presentation_display_block>
 
 <iframe class="plotly" src="media/Mean time vs output.html" style="min-width: 666px !important; max-width: 100% !important; height: 555px !important;"></iframe>
 
@@ -564,7 +570,7 @@
 	<li>2 bit: <code>000123333</code>.</li>
 	</presentation_display_block>
 	<presentation_display_block>
-	<li>3 bit: <code>001234568</code>.</li>
+	<li>3 bit: <code>001234567</code>.</li>
 	</presentation_display_block>
 	<presentation_display_block>
 	<li>Etc.</li>
@@ -674,6 +680,9 @@
 
 <h1>Required space in the pixels</h1>
 
+</presentation_display_block>
+<presentation_display_block>
+
 <div style="display: flex; width: 100%;">
 	<div style="display: flex; flex-direction: column; width: 50%;">
 		<h2 class="unnumbered">Fully digital TDC</h2>
@@ -685,7 +694,6 @@
 		</ul>
 		<image src="media/7.svg" style="width: 100%; max-width: 222px;"></image>
 	</div>
-	
 	<div style="display: flex; flex-direction: column; width: 50%;">
 		<h2 class="unnumbered">Semi analog TDC</h2>
 		<p>Current implementation:</p>
@@ -699,36 +707,50 @@
 	</div>
 </div>
 
-
+</presentation_display_block>
+<presentation_display_block>
 
 <h1>Further perspectives</h1>
 
-<p style="color: red;">UNDER CONSTRUCTION</p>
-
 <ul class="spaced">
-	<li>An analog front end circuit to interface the sensors and the TDC was designed and produced, though not yet tested.</li>
-	<li>Looking forward for a Prototype 100×100&nbsp;µm<sup>2</sup>, 30×30 pixels.</li>
+	<li>An analog front end circuit was designed and produced, though not yet tested.</li>
+</presentation_display_block>
+<presentation_display_block>
+	<li>Projected prototype:
+		<ul>
+			<li>Pixel size: 100×100&nbsp;µm<sup>2</sup>.</li>
+			<li>30×30 pixels.</li>
+			<li>Interface it with real TI-LGAD sensors (in production).</li>
+		</ul>
+	</li>
 </ul>
 
+</presentation_display_block>
+<presentation_display_block>
 
 <h1>Conclusions</h1>
 
 <ul class="spaced">
-	<li>Two TDC designs were produced and tested.
+	<li>Two TDC designs were produced, tested and studied:
 		<ol>
 			<li>Fully digital TDC: Fast inverters, digital readout.</li>
-			<li>Semi analog TDC: Slower inverters, analog readout + interpolation.</li>
+			<li>Semi analog TDC: Slower inverters, semi-analog readout + interpolation.</li>
 		</ol>
 	</li>
+</presentation_display_block>
+<presentation_display_block>
 	<li>Their performance was studied.
 		<ol>
-			<li>Fully digital TDC: $\lesssim 60 \text{ ps}$ time resolution.</li>
-			<li>Semi analog TDC: $\lesssim 30 \text{ ps}$ time resolution.</li>
+			<li>Fully digital TDC: $\lesssim 60 \text{ ps}$ "full width" time resolution, $\sigma \lesssim 20\text{ ps}$.</li>
+			<li>Semi analog TDC: $\lesssim 30 \text{ ps}$ "full width" time resolution, $\sigma \lesssim 10\text{ ps}$.</li>
 		</ol>
 	</li>
-	<li style="font-weight: bold; color: red;">Power consumption? MISSING</li>
-	<li style="font-weight: bold; color: red;">Space in pixel? MISSING for fully digital TDC, I have the info for semi analog. The problem is that the fully digital is very big, but it can measure "very long times" so it is probably unnecessarily big.</li>
-	<li style="font-weight: bold; color: red;">Radiation hardness? MISSING</li>
+</presentation_display_block>
+<presentation_display_block>
+	<li>Semi analog design fits well in 50×50&nbsp;µm<sup>2</sup> pixel.</li>
+</presentation_display_block>
+<presentation_display_block>
+	<li>Power consumption and radiation hardness studies are pending.</li>
 </ul>
 
 </presentation_display_block>
@@ -750,7 +772,9 @@
 <script src="https://sengerm.github.io/html-academic-publishing/css_and_scripts/authors.js"></script>
 
 <!-- Presentation display blocks -->
+<!--
 <script src="https://sengerm.github.io/html-academic-publishing/css_and_scripts/presentation_display_block/presentation_display_block.js"></script>
+-->
 <link rel="stylesheet" href="https://sengerm.github.io/html-academic-publishing/css_and_scripts/presentation_display_block/presentation_display_block.css">
 <script src="js/header.js"></script>
 <link rel="stylesheet" href="css/header.css">
