@@ -150,7 +150,7 @@
 
 <h2 class="unnumbered">Sensors</h2>
 
-<p>In the <b>sensors</b> side there are a number of technologies under development:
+<p>A number of technologies under development.
 <ul class="spaced">
 	<li>Inverse LGAD (iLGAD).</li>
 	<li>Trench Isolated LGAD (TI-LGAD).</li>
@@ -161,14 +161,41 @@
 </presentation_display_block>
 <presentation_display_block>
 
-<p>This require an <b>ASIC</b> capable of providing such characteristics with a low power consumption and withstanding the high radiation levels.</p>
+<h2 class="unnumbered">Readout</h2>
+
+<p>Use Time to Digital Converters (TDC) to digitize the timing information.</p>
 
 </presentation_display_block>
 <presentation_display_block>
 	
-<p>Our goal:</p>
+<ul class="spaced">
+	<li>TDC technology already exists.</li>
+	<li>Has to be adapted to the constraints in HEP.
+</presentation_display_block>
+<presentation_display_block>
+		<ul>
+			<li>Fit within a pixel.</li>
+			<li>Low power consumption.</li>
+			<li>Radiation tolerant.</li>
+		</ul>
+	</li>
+</ul>
 
-<div style="margin: 22px 0 22px 44px;"><p>"Full ASIC" = Analog front end + Digitizer</p></div>
+</presentation_display_block>
+<presentation_display_block>
+	
+<p>Long term goal:</p>
+
+<ul class="spaced">
+	<li>Full readout solution = Analog front end + Digitizer</li>
+	<li>Spacial resolution $\lesssim$ 50&nbsp;µm.</li>
+	<li>Temporal resolution $\lesssim$ 30&nbsp;ps.</li>
+</ul>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<p>Currently working on a prototype.</p>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -180,23 +207,51 @@
 
 <h1>TDC designs</h1>
 
-<p>2 designs have been <b>produced and tested</b>:</p>
+</presentation_display_block>
+<presentation_display_block>
+
+<h2 class="unnumbered">General idea</h2>
+
+<p>A closed chain of inverters + a counter:</p>
+
+<image src="media/general_idea_of_the_TDCs.svg" style="width: 100%; max-width: 555px; margin: 0 auto; display: block;"></image>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<p>3 designs have been <b>produced and tested</b>:</p>
 
 <ol class="spaced">
 	<li>Fully digital TDC.</li>
 	<li>Semi analog TDC.</li>
+	<li>Fully analog TDC.</li>
 </ol>
 
 
 </presentation_display_block>
 <presentation_display_block>
 
-<h2>Fully digital TDC</h2>
+<p>Today I will discuss the <b>fully digital</b> and the <b>semi analog</b> designs only.</p>
 
 </presentation_display_block>
 <presentation_display_block>
 
+<h2>Fully digital TDC</h2>
+
 <image width=100% src="media/fully_digital_tdc_block diagram.svg"></image>
+
+</presentation_display_block>
+<presentation_display_block>
+
+<ul>
+	<li>Fast inverters. 21 in total.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>Ring is digitally sampled.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>7 bit counter.</li>
+</ul>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -222,17 +277,22 @@
 </presentation_display_block>
 <presentation_display_block>
 
-<p>Inverters are "regular inverters" but optimized for high speed.</p>
-
-</presentation_display_block>
-<presentation_display_block>
-
 <h2>Semi analog TDC</h2>
 
+<image width=100% src="media/semi_analog_tdc_block diagram.svg"></image>
+
 </presentation_display_block>
 <presentation_display_block>
 
-<image width=100% src="media/semi_analog_tdc_block diagram.svg"></image>
+<ul>
+	<li>Slower inverters with special design. 9 inverters in total.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>Ring is sampled in an analog way.</li>
+	</presentation_display_block>
+	<presentation_display_block>
+	<li>6 bit counter.</li>
+</ul>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -258,11 +318,6 @@
 </presentation_display_block>
 <presentation_display_block>
 
-<p>Fully custom design for the inverters and analog readout stage (not shown in the block diagram).</p>
-
-</presentation_display_block>
-<presentation_display_block>
-
 <h2>Summary of the two designs</h2>
 
 <p>We can view each TDC as a black box:</p>
@@ -277,9 +332,6 @@
 <presentation_display_block>
 
 <p>A specialized test setup was assembled.</p>
-
-</presentation_display_block>
-<presentation_display_block>
 
 <image src="media/test_setup_block_diagram.svg" style="width: 100%; max-width: 888px; display: block; margin: 0 auto;"></image>
 
@@ -302,7 +354,8 @@
 </presentation_display_block>
 <presentation_display_block>
 
-<p>A picture of the setup:</p>
+<p>A picture of the setup (human not shown &#128513;):</p>
+
 <image src="media/5.svg" style="height: 60vh; margin: 0 auto; display: block;"></image>
 
 </presentation_display_block>
@@ -310,10 +363,10 @@
 
 <h1>Results</h1>
 
-<h2 id="Section: Fully digital TDC results">Fully digital TDC</h2>
-
 </presentation_display_block>
 <presentation_display_block>
+	
+<h2 id="Section: Fully digital TDC results">Fully digital TDC</h2>
 
 <ul class="spaced">
 	<li>The time $\Delta t = t_\text{START} - t_\text{STOP}$ was measured with the TDC many times, with different values of $\Delta t$, to get enough statistics.</li>
