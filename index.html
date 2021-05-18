@@ -75,6 +75,14 @@
 </presentation_display_block>
 <presentation_display_block>
 
+<div style="display: flex; justify-content: space-evenly; margin: 77px 0; background-color: rgb(222,222,255); padding: 33px;">
+<div>High luminosities</div><div>$\Rightarrow$</div><div>High pileup</div><div>$\Rightarrow$</div><div>Position resolution is not enough</div>
+</div>
+
+</presentation_display_block>
+<presentation_display_block>
+
+
 <div style="display: flex; justify-content: space-around; align-items: center; overflow-x: auto; flex-direction: column;">
 	<p>Two events occur at "almost the same position" but at different times:</p>
 	<div style="width: 25vw; max-width: 333px; min-width: 222px;">
@@ -96,12 +104,6 @@
 	</div>
 </div>
 
-</presentation_display_block>
-<presentation_display_block>
-
-<div style="display: flex; justify-content: space-evenly; margin: 77px 0; background-color: rgb(222,222,255); padding: 33px;">
-<div>High luminosities</div><div>$\Rightarrow$</div><div>High pileup</div><div>$\Rightarrow$</div><div>Position resolution is not enough</div>
-</div>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -188,10 +190,6 @@
 	<li>Temporal resolution $\lesssim$ 30&nbsp;ps.</li>
 </ul>
 
-</presentation_display_block>
-<presentation_display_block>
-
-<p>Currently working on a prototype.</p>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -220,14 +218,9 @@
 <ol class="spaced">
 	<li>Fully digital TDC. <a href="https://www.umc.com/en/Product/technologies/Detail/mature_technologies">UMC&nbsp;110&nbsp;nm technology</a>.</li>
 	<li>Semi analog TDC. <a href="http://www.lfoundry.com/en/technology#lf2">L&nbsp;Foundry 110&nbsp;nm technology</a><footnote>This design was also produced with UMC110 technology. The production with LF110 technology, however, yields better results and this one is discussed in this talk.</footnote>.</li>
-	<li>Fully analog TDC.</li>
+	<li>Fully analog TDC. (Not discussed today.)</li>
 </ol>
 
-
-</presentation_display_block>
-<presentation_display_block>
-
-<p>Today I will discuss the <b>fully digital</b> and the <b>semi analog</b> designs only.</p>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -244,9 +237,6 @@
 	</presentation_display_block>
 	<presentation_display_block>
 	<li>Ring is digitally sampled.</li>
-	</presentation_display_block>
-	<presentation_display_block>
-	<li>7 bit counter.</li>
 </ul>
 
 </presentation_display_block>
@@ -265,9 +255,6 @@
 	</presentation_display_block>
 	<presentation_display_block>
 	<li><code>STOP</code> changes to high. The state of the system is registered by the flip-flops and the counter.</li>
-	</presentation_display_block>
-	<presentation_display_block>
-	<li>Read the outputs.</li>
 </ol>
 
 </presentation_display_block>
@@ -285,9 +272,6 @@
 	</presentation_display_block>
 	<presentation_display_block>
 	<li>Ring is sampled in an analog way.</li>
-	</presentation_display_block>
-	<presentation_display_block>
-	<li>6 bit counter.</li>
 </ul>
 
 </presentation_display_block>
@@ -306,9 +290,6 @@
 	</presentation_display_block>
 	<presentation_display_block>
 	<li><code>STOP</code> changes to high. The inverters are "analogly frozen" in whatever state they were. The one inverter that was commuting is frozen in an intermediate state.</li>
-	</presentation_display_block>
-	<presentation_display_block>
-	<li>The <code>INV[8:0]</code> outputs are read in an analog way.</li>
 </ol>
 
 </presentation_display_block>
@@ -342,9 +323,6 @@
 	</presentation_display_block>
 	<presentation_display_block>
 	<li>Delay module: Produces <code>START</code> and <code>STOP</code> signals with arbitrary time difference (-10 to 10&nbsp;ns in steps of about 1&nbsp;ps).</li>
-	</presentation_display_block>
-	<presentation_display_block>
-	<li>ADC: Used only for the semi analog TDC as <code>INV[:]</code> is an analog bus.</li>
 </ul>
 
 </presentation_display_block>
@@ -386,12 +364,10 @@
 	<li>The notation is <code>COUNT[:]|INV[:]</code>.</li>
 	</presentation_display_block>
 	<presentation_display_block>
-	<li>Problem with the bit <code>COUNT[0]</code> (error in circuit layout &#128533;).</li>
-	</presentation_display_block>
-	<presentation_display_block>
 	<li>Distribution: Uniform with small tails.</li>
 	</presentation_display_block>
 	<presentation_display_block>
+<!--
 	<li>Gaps within some distributions: Due to the test setup<footnote>Problem already identified in the Raspberry Pi software.</footnote>, not TDC issue.</li>
 	</presentation_display_block>
 	<presentation_display_block>
@@ -405,18 +381,20 @@
 			<li>Affects all our TDC designs.</li>
 		</ul>
 	</li>
+-->
 </ul>
 
 </presentation_display_block>
 <presentation_display_block>
 
-<p>We can think of this as an imperfect ruler:</p>
-<img src="media/ruler_nice.svg" onmouseover="this.src='media/ruler_not_nice.svg'" onmouseout="this.src='media/ruler_nice.svg'" style="margin: 0 auto; display: block; width: 100%; max-width: 666px;"/>
+
+<h2 class="unnumbered">Time resolution</h2>
 
 </presentation_display_block>
 <presentation_display_block>
-
-<h2 class="unnumbered">Time resolution</h2>
+	
+<p>We can think of this as an imperfect ruler:</p>
+<img src="media/ruler_nice.svg" onmouseover="this.src='media/ruler_not_nice.svg'" onmouseout="this.src='media/ruler_nice.svg'" style="margin: 0 auto; display: block; width: 100%; max-width: 666px;"/>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -458,7 +436,7 @@
 	<li>Linear (as expected).</li>
 </presentation_display_block>
 <presentation_display_block>
-	<li>Deviations for outputs with <code>INV[:]=1</code>. Due to the problem previously discussed.</li>
+	<li>Deviations for outputs with <code>INV[:]=1</code>. Design problem, easy solution.</li>
 </ul>
 
 </presentation_display_block>
@@ -477,7 +455,7 @@
 <presentation_display_block>
 
 <ul>
-	<li>Peaks due to the <code>INV[:]=1</code> problem, once again.</li>
+	<li>Peaks due to the <code>INV[:]=1</code> problem, same problem same solution.</li>
 </presentation_display_block>
 <presentation_display_block>
 	<li>Moving averages increase for higher times. Expected because fluctuations in propagation delay of inverters are accumulative.</li>
@@ -626,16 +604,10 @@
 <presentation_display_block>
 
 <ul style="spaced">
-	<li>Same problem of the counter counting in between a fixed <code>INV</code> state; solution another counter in another node.</li>
+	<li>Degradation of time resolution as time goes by; again expected due to the accumulative fluctuations in propagation delay.</li>
 </presentation_display_block>
 <presentation_display_block>
-	<li>We see a degradation of the time resolution as time goes by; again expected due to the accumulative fluctuations in propagation delay.</li>
-</presentation_display_block>
-<presentation_display_block>
-	<li>Time resolution improves significantly by adding bits!</li>
-</presentation_display_block>
-<presentation_display_block>
-	<li>If only two bits are used: Worse than fully digital.</li>
+	<li>Time resolution improves by adding bits.</li>
 </ul>
 
 </presentation_display_block>
