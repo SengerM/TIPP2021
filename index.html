@@ -71,80 +71,9 @@
 
 <h1>Introduction</h1>
 
-<h2 class="unnumbered">Time resolution in the tracker</h2>
+<p>Future HEP experiments will require not only spatial but also <b>temporal resolution</b> in the tracker&nbsp;<crossref>Reference: Program of Tech for Future Experiments</crossref>.</p>
 
-<p>Why add time resolution?</p>
-
-</presentation_display_block>
-<presentation_display_block>
-
-<div style="display: flex; justify-content: space-evenly; margin: 77px 0; background-color: rgb(222,222,255); padding: 33px;">
-<div>High luminosities</div><div>$\Rightarrow$</div><div>High pileup</div><div>$\Rightarrow$</div><div>Position resolution is not enough</div>
-</div>
-
-</presentation_display_block>
-<presentation_display_block>
-
-
-<div style="display: flex; justify-content: space-around; align-items: center; overflow-x: auto; flex-direction: column;">
-	<p>Two events occur at "almost the same position" but at different times:</p>
-	<div style="width: 25vw; max-width: 333px; min-width: 222px;">
-		<image src="media/1.svg" width=100%></image>
-	</div>
-</div>
-
-</presentation_display_block>
-<presentation_display_block>
-
-<div style="display: flex; justify-content: space-around; align-items: top; overflow-x: auto;">
-	<div style="width: 25vw; max-width: 333px; min-width: 222px;">
-		<p>Without time resolution:</p>
-		<image src="media/2.svg" width=100%></image>
-	</div>
-	<div style="width: 25vw; max-width: 333px; min-width: 222px;">
-		<p>With time resolution:</p>
-		<image src="media/3.svg" width=100%></image>
-	</div>
-</div>
-
-
-</presentation_display_block>
-<presentation_display_block>
-
-<h2 class="unnumbered">Future requirements</h2>
-
-<p>A summary from&nbsp;<crossref>Reference: Program of Tech for Future Experiments</crossref></p>
-
-<table class="spaced">
-<thead>
-  <tr>
-    <th></th>
-    <th>HL-LHC</th>
-    <th>FCC-hh</th>
-    <th>FCC-ee</th>
-    <th>CLIC</th>
-    <th>µ<sup>+</sup>µ<sup>-</sup></th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td><b>Pixel size (µm×µm)</b></td>
-    <td>50×50</td>
-    <td>25×50</td>
-    <td>25×25</td>
-    <td>25×25</td>
-    <td><br></td>
-  </tr>
-  <tr>
-    <td><b>Time resolution (ps)</b></td>
-    <td>50</td>
-    <td>10</td>
-    <td>1000</td>
-    <td>5000</td>
-    <td>50-100</td>
-  </tr>
-</tbody>
-</table>
+<p>The so called <em>4D pixels</em> are under strong development to provide accurate time+space tracking of Minimum Ionizing Particles (MIPs).</p>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -185,19 +114,9 @@
 </presentation_display_block>
 <presentation_display_block>
 	
-<p>Long term goal:</p>
+<p>Long term goal: "Full ASIC" = Analog front end + TDC.</p>
 
-<ul class="spaced">
-	<li>Full readout solution = Analog front end + Digitizer</li>
-	<li>Spacial resolution $\lesssim$ 50&nbsp;µm.</li>
-	<li>Temporal resolution $\lesssim$ 30&nbsp;ps.</li>
-</ul>
-
-
-</presentation_display_block>
-<presentation_display_block>
-
-<p><b>Today</b> I will focus on the timing digitizer, <b>Time to Digital Converter (TDC)</b>.</p>
+<p><b>Today</b> I will focus on the timing digitizer, <b>TDC</b>.</p>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -211,7 +130,7 @@
 
 <p>A closed chain of inverters + a counter:</p>
 
-<image src="media/general_idea_of_the_TDCs.svg" style="width: 100%; max-width: 555px; margin: 0 auto; display: block;"></image>
+<image src="media/general_idea_of_the_TDCs.svg" style="width: 100%; max-width: 666px; margin: 55px;"></image>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -302,7 +221,7 @@
 
 <p>We can view each TDC as a black box:</p>
 
-<image src="media/4.svg" style="width: 100%; max-width: 777px; display: block; margin: 88px auto;"></image>
+<image src="media/4.svg" style="width: 100%; max-width: 777px; margin: 44px;"></image>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -313,7 +232,7 @@
 
 <p>A specialized test setup was assembled.</p>
 
-<image src="media/test_setup_block_diagram.svg" style="width: 100%; max-width: 888px; display: block; margin: 0 auto;"></image>
+<image src="media/test_setup_block_diagram.svg" style="width: 100%; max-width: 888px; margin: 55px;"></image>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -333,7 +252,7 @@
 
 <p>A picture of the setup (human not shown &#128513;):</p>
 
-<image src="media/5.svg" style="height: 60vh; margin: 0 auto; display: block;"></image>
+<image src="media/5.svg" style="height: 60vh;"></image>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -370,21 +289,6 @@
 	<li>Distribution: Uniform with small tails.</li>
 	</presentation_display_block>
 	<presentation_display_block>
-<!--
-	<li>Gaps within some distributions: Due to the test setup<footnote>Problem already identified in the Raspberry Pi software.</footnote>, not TDC issue.</li>
-	</presentation_display_block>
-	<presentation_display_block>
-	<li>Outputs with <code>INV[:]=1</code> appear twice (e.g. <code>2|111111111111111111111</code>).
-		</presentation_display_block>
-		<presentation_display_block>
-		<ul>
-			<li>Solution: Extra counter.</li>
-			</presentation_display_block>
-			<presentation_display_block>
-			<li>Affects all our TDC designs.</li>
-		</ul>
-	</li>
--->
 </ul>
 
 </presentation_display_block>
@@ -397,7 +301,7 @@
 <presentation_display_block>
 	
 <p>We can think of this as an imperfect ruler:</p>
-<img src="media/ruler_nice.svg" onmouseover="this.src='media/ruler_not_nice.svg'" onmouseout="this.src='media/ruler_nice.svg'" style="margin: 0 auto; display: block; width: 100%; max-width: 666px;"/>
+<img src="media/ruler_nice.svg" onmouseover="this.src='media/ruler_not_nice.svg'" onmouseout="this.src='media/ruler_nice.svg'" style="width: 100%; max-width: 666px; margin: 55px;"/>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -417,7 +321,7 @@
 
 <p>In view of this, I will look at the following quantities:</p>
 
-<image src="media/time_resolution_definition.svg" style="display: block; margin: 0 auto; width: 100%; max-width: 444px;"></image>
+<image src="media/time_resolution_definition.svg" style="margin: 55px; width: 100%; max-width: 444px;"></image>
 
 <ol class="spaced">
 	<li>Mean.</li>
@@ -437,9 +341,6 @@
 
 <ul>
 	<li>Linear (as expected).</li>
-</presentation_display_block>
-<presentation_display_block>
-	<li>Deviations for outputs with <code>INV[:]=1</code>. Design problem, easy solution.</li>
 </ul>
 
 </presentation_display_block>
@@ -458,9 +359,6 @@
 <presentation_display_block>
 
 <ul>
-	<li>Peaks due to the <code>INV[:]=1</code> problem, same problem same solution.</li>
-</presentation_display_block>
-<presentation_display_block>
 	<li>Moving averages increase for higher times. Expected because fluctuations in propagation delay of inverters are accumulative.</li>
 </ul>
 
@@ -474,7 +372,7 @@
 
 <p>Let's see the distribution of the temporal dispersion of the outputs:</p>
 
-<iframe class="plotly" src="media/Time resolution histograms.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
+<iframe class="plotly" src="media/Time resolution histograms.html"></iframe>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -538,15 +436,9 @@
 
 <p>Digitized <code>INV[:]</code> now looks like this:
 <ul class="spaced">
-	<li>1 bit: <code>000011111</code>.</li>
-	</presentation_display_block>
-	<presentation_display_block>
-	<li>2 bit: <code>000123333</code>.</li>
-	</presentation_display_block>
-	<presentation_display_block>
-	<li>3 bit: <code>001234567</code>.</li>
-	</presentation_display_block>
-	<presentation_display_block>
+	<li>1 bit (two levels): <code>000011111</code>.</li>
+	<li>2 bit (four levels): <code>000123333</code>.</li>
+	<li>3 bit (eight levels): <code>001234567</code>.</li>
 	<li>Etc.</li>
 </ul>
 </p>
@@ -603,11 +495,11 @@
 </presentation_display_block>
 <presentation_display_block>
 
-<ul style="spaced">
+<ul class="spaced">
 	<li>Degradation of time resolution as time goes by; again expected due to the accumulative fluctuations in propagation delay.</li>
 </presentation_display_block>
 <presentation_display_block>
-	<li>Time resolution improves by adding bits.</li>
+	<li>Time resolution improves by adding bits&nbsp;&#9989;.</li>
 </ul>
 
 </presentation_display_block>
