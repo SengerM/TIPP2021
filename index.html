@@ -93,7 +93,7 @@
 
 <h2 class="unnumbered">Readout</h2>
 
-<p>Use Time to Digital Converters (TDC) to digitize the timing information.</p>
+<p>Add new capability with Time to Digital Converters (TDC) to digitize the timing information.</p>
 
 </presentation_display_block>
 <presentation_display_block>
@@ -114,7 +114,7 @@
 </presentation_display_block>
 <presentation_display_block>
 	
-<p>Long term goal: "Full ASIC" = Analog front end + TDC.</p>
+<p>Long term goal: "Full ASIC" for 4D pixels.</p>
 
 <p><b>Today</b> I will focus on the timing digitizer, <b>TDC</b>.</p>
 
@@ -135,7 +135,7 @@
 </presentation_display_block>
 <presentation_display_block>
 
-<p>3 designs have been <b>produced and tested</b>:</p>
+<p>3 designs have been <b>produced and tested</b> based on this concept:</p>
 
 <ol class="spaced">
 	<li>Fully digital TDC. <a href="https://www.umc.com/en/Product/technologies/Detail/mature_technologies">UMC&nbsp;110&nbsp;nm technology</a>.</li>
@@ -151,13 +151,8 @@
 
 <image width=100% src="media/fully_digital_tdc_block diagram.svg"></image>
 
-</presentation_display_block>
-<presentation_display_block>
-
 <ul>
 	<li>Fast inverters. 21 in total.</li>
-	</presentation_display_block>
-	<presentation_display_block>
 	<li>Ring is digitally sampled.</li>
 </ul>
 
@@ -168,14 +163,8 @@
 
 <ol class="spaced">
 	<li><code>START</code> and <code>STOP</code> at low level. The ring is open; no oscillation.</li>
-	</presentation_display_block>
-	<presentation_display_block>
 	<li><code>START</code> changes to high. The ring is closed; begins to oscillate.</li>
-	</presentation_display_block>
-	<presentation_display_block>
 	<li>The counter counts number of full loops.</li>
-	</presentation_display_block>
-	<presentation_display_block>
 	<li><code>STOP</code> changes to high. The state of the system is registered by the flip-flops and the counter.</li>
 </ol>
 
@@ -186,13 +175,8 @@
 
 <image width=100% src="media/semi_analog_tdc_block diagram.svg"></image>
 
-</presentation_display_block>
-<presentation_display_block>
-
 <ul>
 	<li>Slower inverters with special design. 9 inverters in total.</li>
-	</presentation_display_block>
-	<presentation_display_block>
 	<li>Ring is sampled in an analog way.</li>
 </ul>
 
@@ -203,14 +187,8 @@
 
 <ol class="spaced">
 	<li><code>START</code> and <code>STOP</code> at low level. Ring does not oscillate.</li>
-	</presentation_display_block>
-	<presentation_display_block>
 	<li><code>START</code> changes to high. The ring starts to oscillate (it is properly initialized, not shown in the block diagram).</li>
-	</presentation_display_block>
-	<presentation_display_block>
 	<li>The counter counts the number of full loops.</li>
-	</presentation_display_block>
-	<presentation_display_block>
 	<li><code>STOP</code> changes to high. The inverters are "analogly frozen" in whatever state they were. The one inverter that was commuting is frozen in an intermediate state.</li>
 </ol>
 
@@ -234,17 +212,10 @@
 
 <image src="media/test_setup_block_diagram.svg" style="width: 100%; max-width: 888px; margin: 55px;"></image>
 
-</presentation_display_block>
-<presentation_display_block>
-
 <ul class="spaced">
 	<li>Raspberri Pi: Automates measurement routines.</li>
-	</presentation_display_block>
-	<presentation_display_block>
 	<li>FPGA: Controls hardware.</li>
-	</presentation_display_block>
-	<presentation_display_block>
-	<li>Delay module: Produces <code>START</code> and <code>STOP</code> signals with arbitrary time difference (-10 to 10&nbsp;ns in steps of about 1&nbsp;ps).</li>
+	<li>Delay module: Produces <code>START</code> and <code>STOP</code> signals with arbitrary time difference (-10 to 10&nbsp;ns in steps of about 1&nbsp;ps)&nbsp;<crossref>Reference: Fully digital TDC characterization</crossref>&nbsp;<crossref>Reference: Characterization of delay in PSI test setup</crossref>.</li>
 </ul>
 
 </presentation_display_block>
@@ -266,8 +237,6 @@
 
 <ul class="spaced">
 	<li>The time $\Delta t = t_\text{START} - t_\text{STOP}$ was measured with the TDC many times, with different values of $\Delta t$, to get enough statistics.</li>
-	</presentation_display_block>
-	<presentation_display_block>
 	<li>For each $\Delta t$ the output of the TDC was recorded.</li>
 </ul>
 
@@ -279,16 +248,9 @@
 
 <iframe class="plotly" src="media/Distribution of outputs for TDC 2.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
 
-</presentation_display_block>
-<presentation_display_block>
-
 <ul>
 	<li>The notation is <code>COUNT[:]|INV[:]</code>.</li>
-	</presentation_display_block>
-	<presentation_display_block>
 	<li>Distribution: Uniform with small tails.</li>
-	</presentation_display_block>
-	<presentation_display_block>
 </ul>
 
 </presentation_display_block>
@@ -308,11 +270,7 @@
 
 <ul>
 	<li>The "ruler" is "dense", i.e. there are no empty gaps.</li>
-	</presentation_display_block>
-	<presentation_display_block>
 	<li>For each bin in this "imperfect ruler" (i.e. for each output of our TDC) we can define its own resolution.</li>
-	</presentation_display_block>
-	<presentation_display_block>
 	<li>Distributions tend to be uniform.</li>
 </ul>
 
@@ -336,9 +294,6 @@
 
 <iframe class="plotly" src="media/Mean time vs output.html" style="min-width: 666px !important; max-width: 100% !important; height: 555px !important;"></iframe>
 
-</presentation_display_block>
-<presentation_display_block>
-
 <ul>
 	<li>Linear (as expected).</li>
 </ul>
@@ -354,9 +309,6 @@
 <p>This plot shows $\sigma$ and $q_{95\text{ %}} - q_{5\text{ %}}$ together.</p>
 
 <iframe class="plotly" src="media/Time resolution vs output.html" style="min-width: 666px !important; max-width: 100% !important; height: 555px !important;"></iframe>
-
-</presentation_display_block>
-<presentation_display_block>
 
 <ul>
 	<li>Moving averages increase for higher times. Expected because fluctuations in propagation delay of inverters are accumulative.</li>
@@ -408,15 +360,11 @@
 	<iframe class="plotly" src="media/processed_by_script_visualize_tpix_data_FOR_TIPP2021/Raw inverters signals.html" style="min-width: 555px !important; max-width: 77% !important;"></iframe>
 </div>
 
-</presentation_display_block>
-<presentation_display_block>
-
 <ul>
 	<li>The counter counts each falling edge of <code>INV[8]</code>.</li>
-	</presentation_display_block>
-	<presentation_display_block>
 	<li><code>INV[8]</code> has different amplitude due to the counter input impedance.</li>
 </ul>
+
 </presentation_display_block>
 <presentation_display_block>
 
@@ -431,14 +379,11 @@
 
 <iframe class="plotly" src="media/Discretization demonstration.html" style="min-width: 666px !important; max-width: 100% !important;"></iframe>
 
-</presentation_display_block>
-<presentation_display_block>
-
 <p>Digitized <code>INV[:]</code> now looks like this:
 <ul class="spaced">
-	<li>1 bit (two levels): <code>000011111</code>.</li>
-	<li>2 bit (four levels): <code>000123333</code>.</li>
-	<li>3 bit (eight levels): <code>001234567</code>.</li>
+	<li>1 bit (two levels): <code>INV[:]</code> bus will look like: <code>000011111</code>.</li>
+	<li>2 bit (four levels): <code>INV[:]</code> bus will look like: <code>000123333</code>.</li>
+	<li>3 bit (eight levels): <code>INV[:]</code> bus will look like: <code>001234567</code>.</li>
 	<li>Etc.</li>
 </ul>
 </p>
@@ -492,13 +437,8 @@
 	</div>
 </div>
 
-</presentation_display_block>
-<presentation_display_block>
-
 <ul class="spaced">
 	<li>Degradation of time resolution as time goes by; again expected due to the accumulative fluctuations in propagation delay.</li>
-</presentation_display_block>
-<presentation_display_block>
 	<li>Time resolution improves by adding bits&nbsp;&#9989;.</li>
 </ul>
 
@@ -544,6 +484,8 @@
 
 <h1>Required space in the pixels</h1>
 
+<p>Reference pixel of 50×50&nbsp;µm<sup>2</sup>&nbsp;<crossref>Reference: Program of Tech for Future Experiments</crossref>:</p>
+
 </presentation_display_block>
 <presentation_display_block>
 
@@ -578,8 +520,6 @@
 
 <ul class="spaced">
 	<li>An analog front end circuit was designed and produced, though not yet tested.</li>
-</presentation_display_block>
-<presentation_display_block>
 	<li>Projected prototype:
 		<ul>
 			<li>Pixel size: 100×100&nbsp;µm<sup>2</sup>.</li>
@@ -598,22 +538,16 @@
 	<li>Two TDC designs were produced, tested and studied:
 		<ol>
 			<li>Fully digital TDC: Fast inverters, digital readout.</li>
-			<li>Semi analog TDC: Slower inverters, semi-analog readout + interpolation.</li>
+			<li>Semi analog TDC: Slower inverters, semi-analog readout.</li>
 		</ol>
 	</li>
-</presentation_display_block>
-<presentation_display_block>
 	<li>Their performance was studied.
 		<ol>
 			<li>Fully digital TDC: $\lesssim 60 \text{ ps}$ "full width" time resolution, $\sigma \lesssim 20\text{ ps}$.</li>
 			<li>Semi analog TDC: $\lesssim 30 \text{ ps}$ "full width" time resolution, $\sigma \lesssim 10\text{ ps}$.</li>
 		</ol>
 	</li>
-</presentation_display_block>
-<presentation_display_block>
 	<li>Semi analog design fits well in 50×50&nbsp;µm<sup>2</sup> pixel.</li>
-</presentation_display_block>
-<presentation_display_block>
 	<li>Power consumption and radiation hardness studies are pending.</li>
 </ul>
 
@@ -629,6 +563,8 @@
 	<reference id="Resistive AC-Coupled Silicon Detectors: Principles of Operation and First Results from a Combined Analysis of Beam Test and Laser Data">Tornago, M., R. Arcidiacono, N. Cartiglia, M. Costa, M. Ferrero, M. Mandurrino, F. Siviero, et al. “Resistive AC-Coupled Silicon Detectors: Principles of Operation and First Results from a Combined Analysis of Beam Test and Laser Data.” ArXiv:2007.09528 [Physics], October 16, 2020. <a href="http://arxiv.org/abs/2007.09528">http://arxiv.org/abs/2007.09528</a>.</reference>
 	<reference id="Reference: Trench-Isolated Low Gain Avalanche Diodes (TI-LGADs)">Paternoster, G., G. Borghi, M. Boscardin, N. Cartiglia, M. Ferrero, F. Ficorella, F. Siviero, A. Gola, and P. Bellutti. “Trench-Isolated Low Gain Avalanche Diodes (TI-LGADs).” IEEE Electron Device Letters 41, no. 6 (June 2020): 884–87. <a href="https://doi.org/10.1109/LED.2020.2991351">https://doi.org/10.1109/LED.2020.2991351</a>.</reference>
 	<reference id="Reference: Inverse Low Gain Avalanche Detectors (ILGADs) for Precise Tracking and Timing Applications">Currás, E., M. Carulla, M. Centis Vignali, J. Duarte-Campderros, M. Fernández, D. Flores, A. García, et al. “Inverse Low Gain Avalanche Detectors (ILGADs) for Precise Tracking and Timing Applications.” Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment 958 (April 2020): 162545. <a href="https://doi.org/10.1016/j.nima.2019.162545">https://doi.org/10.1016/j.nima.2019.162545</a>.</reference>
+	<reference id="Reference: Characterization of delay in PSI test setup">Characterization of delay in PSI test setup, Matías Senger, <a href="https://msenger.web.cern.ch/characterization-of-delay-in-psi-test-setup/">https://msenger.web.cern.ch/characterization-of-delay-in-psi-test-setup/</a>.</reference>
+	<reference id="Reference: Fully digital TDC characterization">“Fully digital” TDC characterization, Matías Senger, <a href="https://msenger.web.cern.ch/fully-digital-tdc-characterization/">https://msenger.web.cern.ch/fully-digital-tdc-characterization/</a>.</reference>
 </div>
 
 <div id="footnotes_list">
